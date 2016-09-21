@@ -5,6 +5,8 @@ import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import static java.security.AccessController.getContext;
+
 /**
  * Created by trina on 9/21/2016.
  */
@@ -48,14 +50,20 @@ public class Utill {
     }
 
 
-    public static int convertPxtoDp(float dp, Context context) {
-        Resources resources = context.getResources();
-        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-        float pixels = dp *(displayMetrics.densityDpi)/160.0f;
-        Log.d(TAG, "pixels " + pixels);
 
-        return (int) pixels;
+
+    public int convertPxtoDp(int dp,Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int px = Math.round(dp * (displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
+        return px;
     }
+
+    public int convertDptoPx(int px,Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int dp = Math.round(px / (displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
+        return dp;
+    }
+
 
 
 }
